@@ -3,6 +3,9 @@ import mysql from "mysql2/promise";
 import {datosProductos, insertarProductos,MostrarDatosEliminar,
         EliminarProd
  } from "./funciones_Productos.js";
+import dotenv from "dotenv";
+
+dotenv.config(); // <-- Esto carga las variables del entorno (en local o Railway)
 
 //objeto para llamar a los metodos de express
 export const app = express();
@@ -17,11 +20,11 @@ app.use(express.static("public"));
 
 try{
     const conexion = await mysql.createConnection({
-        host: "127.0.0.1",
-        port: "3306",
-        database: "tienda",
-        user: "root",
-        password: "Alexisroot12"
+        host: process.env.MYSQLHOST || "127.0.0.1",
+        port: process.env.MYSQLPORT || 3306,
+        database: process.env.MYSQLDATABASE || "tienda",
+        user: process.env.MYSQLUSER || "root",
+        password: process.env.MYSQLPASSWORD || "Alexisroot12",
     });
     console.log("Conectado a la base de datos ✅");
     datosProductos(app, conexion)
@@ -41,8 +44,12 @@ app.get("/eliminarProd", function (req, res) {
     res.render("eliminarProd");
 });
 
+
+// Railway define su propio puerto en process.env.PORT
+const PORT = process.env.PORT || 3002;
+
 //configurar el puerto usado para el servidor local
-app.listen(3002, function () {
-    console.log("El servidor es htpp://localhost:3002");
+app.listen(PORT, function () {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
 
