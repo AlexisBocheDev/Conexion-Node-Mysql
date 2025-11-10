@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estiloGeneral.css">
+    <title>Eliminar producto</title>
+</head>
+<body>
+    
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="http://localhost:3002">Inicio</a></li>
+                <li><a href="http://localhost:3002/eliminarProd">Eliminar producto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contenedor1">
+            <div class="tablaProductos">
+                <table border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio Provedor</th>
+                        <th>Precio Publico</th>
+                    </tr>
+                    <% if(results && results.length>0){ %>
+                    <% results.forEach((productos) => { %>
+                    <tr>
+                        <td><%= productos.id_prod %></td>
+                        <td><%= productos.nombre %></td>
+                        <td><%= productos.cantidad %></td>
+                        <td><%= productos.precio_Provedor %></td>
+                        <td><%= productos.precio_publico %></td>
+                    </tr>
+                    <% }) %>
+                            
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay registros todavia</td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+
+
+            <div id="form_productos">
+                <% if(typeof mensaje !=="undefined"){ %>
+                    <p class="mensaje">
+                        <%= mensaje %>
+                    </p>
+                        
+                <% } %>
+                <form action="/eliminar_prod" method="post" class="formulario1">
+                    <fieldset>
+                        <legend>Eliminar producto</legend>
+                        <label for="id_prod">ID:</label>
+                        <input type="number" name="id_prod" id="id_prod" value="0">
+                        <button type="submit">Eliminar usuario</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+    </main>
+
+
+    <footer>Desarrollado por Alexis Boche &copy;Derechos reservados</footer>
+
+</body>
+</html>

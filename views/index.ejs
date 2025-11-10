@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/estiloGeneral.css">
+    <title>Inicio</title>
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <ul>
+                <li><a href="http://localhost:3002">Inicio</a></li>
+                <li><a href="http://localhost:3002/eliminarProd">Eliminar producto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <h1>Bienvenido al admin <i><strong>Tiendas Boche</strong></i></h1>
+        <section class="contenedor1">
+            <div class="tablaProductos">
+                <table border="1">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio Provedor</th>
+                        <th>Precio Publico</th>
+                    </tr>
+                    <% if(results && results.length>0){ %>
+                    <% results.forEach((productos) => { %>
+                    <tr>
+                        <td><%= productos.id_prod %></td>
+                        <td><%= productos.nombre %></td>
+                        <td><%= productos.cantidad %></td>
+                        <td><%= productos.precio_Provedor %></td>
+                        <td><%= productos.precio_publico %></td>
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="7">No hay registros todavia</td>
+                        </tr>
+                    <% } %>
+                </table>
+            </div>
+
+
+            <div id="form_productos">
+                <% if(typeof mensaje !=="undefined"){ %>
+                    <p class="mensaje">
+                        <%= mensaje %>
+                    </p>
+                    
+                <% } %>
+                <form action="/registro" method="post" class="formulario1">
+                    <fieldset>
+                        <legend>Registrar producto</legend>
+                        <label for="id_prod">ID (No obligatorio):</label>
+                        <input type="number" name="id_prod" id="id_prod" value="0">
+
+                        <label for="nombre">Nombre producto</label>
+                        <input type="text" name="nombre" id="nombre" required>
+
+                        <label for="cantidad">Cantidad</label>
+                        <input type="number" name="cantidad" id="cantidad" required>
+
+                        <label for="precio_prove">Precio Proverdor</label>
+                        <input type="number" name="precio_prove" id="precio_prove">
+
+                        <label for="precio_publico">Precio publico</label>
+                        <input type="number" name="precio_publico" id="precio_publico" required>
+                        
+                        <button type="submit">Registrar usuario</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>Desarrollado por Alexis Boche &copy;Derechos reservados</footer>
+
+</body>
+</html>
